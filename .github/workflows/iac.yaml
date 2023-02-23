@@ -72,4 +72,4 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       working-directory: ./iac/terraform
-      run: terraform plan --var-file environments/$ENV/$ENV.tfvars
+      run: terraform apply -auto-approve --var-file environments/$ENV/$ENV.tfvars 
