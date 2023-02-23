@@ -1,0 +1,8 @@
+.vscode
+.devcontainer
+.terraform
+.terraform.lock.hcl
+deploy.plan
+terraform.tfstate
+terraform.tfstate.backup
+.local_files/
