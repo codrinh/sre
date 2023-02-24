@@ -44,9 +44,9 @@ jobs:
 
       - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
-          registry: "$GPC_ARTIFACT_REGISTRY_HOST"
-          project_id: "$GCP_PROJECT"
-          image_name: "$GPC_ARTIFACT_REGISTRY_REPO"
+          registry: europe-west3-docker.pkg.dev
+          project_id: dev-demo-codrin-h
+          image_name: dummy-pdf-or-png
           image_tag: latest,v1
           dockerfile: ./dummy-pdf-or-png/Dockerfile
           context: ./docker
