@@ -49,6 +49,6 @@ jobs:
         with:
           registry: europe-west3-docker.pkg.dev
           project_id: dev-demo-codrin-h
-          image_name: dummy-pdf-or-png-test
+          image_name: dummy-pdf-or-png/demo
           image_tag: latest,v1
           context: ./dummy-pdf-or-png
