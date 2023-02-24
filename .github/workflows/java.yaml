@@ -16,7 +16,7 @@ env:
 
 jobs:
   build-and-push-to-gcr:
-    name: "Golang"
+    name: "Java"
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
