@@ -51,5 +51,5 @@ jobs:
           project_id: dev-demo-codrin-h
           image_name: dummy-pdf-or-png
           image_tag: latest,v1
-          dockerfile: ./dummy-pdf-or-png/Dockerfile
-          context: .
+          # dockerfile: ./dummy-pdf-or-png/Dockerfile
+          context: ./dummy-pdf-or-png
