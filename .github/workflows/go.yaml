@@ -1,6 +1,5 @@
 name: Push to GCR GitHub Action
 on:
-  workflow_dispatch:
   push:
     paths:
       - "dummy-pdf-or-png/**"
@@ -9,17 +8,8 @@ on:
   pull_request:
     paths:
       - "dummy-pdf-or-png/**"
-    branches:
-      - master
-
-# env:
-#   ENV: dev
-#   GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
-#   GPC_ARTIFACT_REGISTRY_REPO: "dummy-pdf-or-png"
 
 jobs:
-  # checkout-and-auth:
-  #   uses: ./.github/workflows/auth.yml
   build-and-push-to-gcr:
     name: "Golang"
     runs-on: ubuntu-latest
@@ -42,9 +32,7 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
-      - name: Build and push
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
