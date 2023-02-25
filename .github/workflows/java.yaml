@@ -1,21 +1,18 @@
-name: Push to GCR GitHub Action
+name: Build and Push Java
 on:
-  workflow_dispatch:
   push:
     paths:
       - "dummy-app/**"
+      - ".github/workflows/java.yaml"
     branches:
       - main
   pull_request:
     paths:
       - "dummy-app/**"
+      - ".github/workflows/java.yaml"
     branches:
       - master
-
-# env:
-#   ENV: dev
-#   GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
-#   GPC_ARTIFACT_REGISTRY_REPO: "dummy-app"
+  workflow_dispatch:
 
 jobs:
   build-and-push-to-gcr:
@@ -43,6 +40,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v4
         with:
+          context: ./dummy-app
           push: false
           tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
 

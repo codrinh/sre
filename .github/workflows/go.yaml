@@ -1,14 +1,17 @@
-name: Push to GCR GitHub Action
+name: Build and Push Go
 on:
   push:
     paths:
       - "dummy-pdf-or-png/**"
+      - ".github/workflows/go.yaml"
     branches:
       - main
   pull_request:
     paths:
       - "dummy-pdf-or-png/**"
-
+      - ".github/workflows/go.yaml"
+  workflow_dispatch:
+  
 jobs:
   build-and-push-to-gcr:
     name: "Golang"

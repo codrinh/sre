@@ -1,16 +1,19 @@
 name: Terraform CI
 on:
-  workflow_dispatch:
   push:
     paths:
       - 'iac/**'
+      - ".github/workflows/iac.yaml"
     branches:
       - main
   pull_request:
     paths:
       - 'iac/**'
+      - ".github/workflows/iac.yaml"
     branches:
       - master
+  workflow_dispatch:
+
 env:
   ENV: dev
   PROJECT_ID: dev-demo-codrin-h
