@@ -12,10 +12,10 @@ on:
     branches:
       - master
 
-env:
-  ENV: dev
-  GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
-  GPC_ARTIFACT_REGISTRY_REPO: "dummy-app"
+# env:
+#   ENV: dev
+#   GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
+#   GPC_ARTIFACT_REGISTRY_REPO: "dummy-app"
 
 jobs:
   build-and-push-to-gcr:
