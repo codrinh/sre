@@ -18,8 +18,8 @@ on:
 #   GPC_ARTIFACT_REGISTRY_REPO: "dummy-pdf-or-png"
 
 jobs:
-  checkout-and-auth:
-    uses: ./.github/workflows/auth.yml
+  # checkout-and-auth:
+  #   uses: ./.github/workflows/auth.yml
   build-and-push-to-gcr:
     name: "Golang"
     runs-on: ubuntu-latest
