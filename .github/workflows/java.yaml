@@ -3,11 +3,13 @@ on:
   push:
     paths:
       - "dummy-app/**"
+      - ".github/workflows/java.yaml"
     branches:
       - main
   pull_request:
     paths:
       - "dummy-app/**"
+      - ".github/workflows/java.yaml"
     branches:
       - master
 

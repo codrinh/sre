@@ -3,11 +3,13 @@ on:
   push:
     paths:
       - 'iac/**'
+      - ".github/workflows/iac.yaml"
     branches:
       - main
   pull_request:
     paths:
       - 'iac/**'
+      - ".github/workflows/iac.yaml"
     branches:
       - master
 env:
