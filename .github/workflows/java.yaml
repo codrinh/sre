@@ -12,6 +12,7 @@ on:
       - ".github/workflows/java.yaml"
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build-and-push-to-gcr:

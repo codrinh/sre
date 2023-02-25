@@ -12,6 +12,8 @@ on:
       - ".github/workflows/iac.yaml"
     branches:
       - master
+  workflow_dispatch:
+
 env:
   ENV: dev
   PROJECT_ID: dev-demo-codrin-h
