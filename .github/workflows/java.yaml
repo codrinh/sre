@@ -1,18 +1,21 @@
 name: Push to GCR GitHub Action
 on:
+  workflow_dispatch:
   push:
     paths:
-      - "dummy-rest-service/**"
+      - "dummy-app/**"
     branches:
       - main
   pull_request:
     paths:
-      - "dummy-rest-service/**"
+      - "dummy-app/**"
+    branches:
+      - master
 
 env:
   ENV: dev
   GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
-  GPC_ARTIFACT_REGISTRY_REPO: "dummy-rest-service"
+  GPC_ARTIFACT_REGISTRY_REPO: "dummy-app"
 
 jobs:
   build-and-push-to-gcr:
@@ -37,10 +40,19 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
-      - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          push: false
+          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
+
+      - name: Push
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-rest-service/demo
+          image_name: dummy-app/demo
           image_tag: latest,v1
-          context: ./dummy-rest-service
+          context: ./dummy-app
+          push_only: true

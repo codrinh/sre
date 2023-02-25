@@ -1,5 +1,6 @@
 name: Terraform CI
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'iac/**'
@@ -8,7 +9,8 @@ on:
   pull_request:
     paths:
       - 'iac/**'
-
+    branches:
+      - master
 env:
   ENV: dev
   PROJECT_ID: dev-demo-codrin-h
