@@ -5,9 +5,9 @@ resource "google_artifact_registry_repository" "dummy-pdf-or-png" {
   format        = "DOCKER"
 }
 
-resource "google_artifact_registry_repository" "dummy-rest-service" {
+resource "google_artifact_registry_repository" "dummy-app" {
   location      = local.main_region
-  repository_id = "dummy-rest-service"
-  description   = "dummy-rest-service docker repository"
+  repository_id = "dummy-app"
+  description   = "dummy-app docker repository"
   format        = "DOCKER"
 }

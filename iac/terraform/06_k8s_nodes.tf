@@ -23,7 +23,7 @@ resource "google_container_node_pool" "general" {
     #   role = "general"
     # }
 
-    service_account = google_service_account.kubernetes.email
+    service_account = google_service_account.gke_sa.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
