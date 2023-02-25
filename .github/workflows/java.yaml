@@ -1,6 +1,5 @@
 name: Push to GCR GitHub Action
 on:
-  workflow_dispatch:
   push:
     paths:
       - "dummy-app/**"
