@@ -13,11 +13,6 @@ on:
     branches:
       - master
 
-# env:
-#   ENV: dev
-#   GPC_ARTIFACT_REGISTRY_HOST: europe-west3-docker.pkg.dev
-#   GPC_ARTIFACT_REGISTRY_REPO: "dummy-app"
-
 jobs:
   build-and-push-to-gcr:
     name: "Java"
@@ -44,6 +39,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v4
         with:
+          context: ./dummy-app
           push: false
           tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
 
