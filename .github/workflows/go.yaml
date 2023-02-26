@@ -40,7 +40,7 @@ jobs:
       - name: codeql
         uses: ./.github/workflows/ci-flow.yml
         with: 
-          working_directory: dummy-pdf-or-png
+          working_directory: ./dummy-pdf-or-png
           scripting_languages: go
 
       - name: Run Gosec Security Scanner
