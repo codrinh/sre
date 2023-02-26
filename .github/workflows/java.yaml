@@ -11,7 +11,7 @@ on:
       - "dummy-app/**"
       - ".github/workflows/java.yaml"
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 env:

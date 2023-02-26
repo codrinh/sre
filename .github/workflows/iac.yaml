@@ -11,7 +11,7 @@ on:
       - 'iac/**'
       - ".github/workflows/iac.yaml"
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 env:
