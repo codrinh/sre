@@ -59,4 +59,4 @@ jobs:
           image_name: dummy-pdf-or-png/demo
           image_tag: latest,v1
           context: ./dummy-pdf-or-png
-          #push_only: true # does not work if tag does not exist
+
