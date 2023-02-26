@@ -39,7 +39,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:          
-          config-file: ${{ inputs.WORKING_DIRECTORY }}/codeql-config.yml
+          # config-file: ${{ inputs.WORKING_DIRECTORY }}/codeql-config.yml
           languages: ${{ inputs.SCRIPTING_LANGUAGES }}
           debug: true          
           
