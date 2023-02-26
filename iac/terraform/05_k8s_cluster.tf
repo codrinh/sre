@@ -1,4 +1,3 @@
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 resource "google_container_cluster" "primary" {
   name                     = "primary"
   location                 = "europe-west3-a"
@@ -10,14 +9,13 @@ resource "google_container_cluster" "primary" {
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   networking_mode          = "VPC_NATIVE"
 
-  # Optional, if you want multi-zonal cluster
   node_locations = [
     "europe-west3-c"
   ]
 
   addons_config {
     http_load_balancing {
-      disabled = false # to read about vs nginx
+      disabled = false
     }
     horizontal_pod_autoscaling {
       disabled = false

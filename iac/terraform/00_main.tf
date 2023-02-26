@@ -4,6 +4,7 @@ locals {
   main_region = "europe-west3"
 }
 
+# Create GKE SA
 resource "google_service_account" "gke_sa" {
   project      = local.project_id
   account_id   = "${var.env}-gke-sa"
@@ -11,6 +12,7 @@ resource "google_service_account" "gke_sa" {
   description  = "GKE SA for the ${local.project_id} project"
 }
 
+# Grant roles to the GKE SA
 resource "google_project_iam_member" "sa_perms" {
   project = local.project_id
   for_each = toset([

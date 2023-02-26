@@ -1,6 +1,6 @@
 # ARGs
 ARG MAVEN_VERSION=3.9
-ARG JAVAJDK_VERSION=17-latest
+ARG JAVAJDK_VERSION=17-jre-headless-latest
 ARG BUILD_TAG="0.0.0"
 
 # Build
@@ -11,11 +11,8 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package -Dproject.version=${BUILD_TAG}
 
 # Package
-FROM azul/zulu-openjdk:${JAVAJDK_VERSION}
+FROM azul/zulu-openjdk:${JAVAJDK_VERSION} as final 
 ARG BUILD_TAG=$BUILD_TAG
-RUN addgroup -g 1001 app
-RUN adduser app -u 1001 -D -G app /home/app
-USER app
-COPY --chown=1001:1001 --from=build /home/app/target/demo-${BUILD_TAG}.war /usr/local/lib/demo-${BUILD_TAG}.war
+COPY --chown=1001:1001 --from=build /home/app/target/demo-${BUILD_TAG}.war /usr/local/lib/demo.war
 EXPOSE 8080 9000
-ENTRYPOINT ["java","-jar","/usr/local/lib/demo-${BUILD_TAG}.war"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/demo.war"]

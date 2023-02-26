@@ -38,7 +38,7 @@ jobs:
           service_account: ${{ vars.GCP_SA }}
 
       - name: codeql
-        uses: ./.github/workflows/ci-flow.yml
+        uses: ./.github/workflows/codeql.yml
         with: 
           working_directory: ./dummy-pdf-or-png
           scripting_languages: go
