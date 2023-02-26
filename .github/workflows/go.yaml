@@ -18,8 +18,9 @@ jobs:
   codeql:
     uses: ./.github/workflows/codeql.yml
     permissions:
-      contents: "read"
-      id-token: "write"
+      actions: read
+      contents: read
+      security-events: write
     with: 
       working_directory: ./dummy-pdf-or-png
       scripting_languages: go
