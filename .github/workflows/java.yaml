@@ -40,24 +40,12 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
-      - name: Application Version
-        id: version
-        uses: paulhatch/semantic-version@v5.0.2
-        with:
-          change_path: "./dummy-app/"
-
-      # - name: Bump Version
-      #   id: bump
-      #   uses: nnichols/maven-version-bump-action@v3
-      #   with:
-      #     pom-path: ./dummy-app/
-
       - name: Build
         uses: docker/build-push-action@v4
         with:
           context: ./dummy-app
           push: false
-          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
+          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:$TEST_TAG
           build-args: BUILD_TAG=$TEST_TAG
 
       - name: Push

@@ -37,6 +37,12 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
+      - name: codeql
+        uses: ./.github/workflows/ci-flow.yml
+        with: 
+          working_directory: dummy-pdf-or-png
+          scripting_languages: go
+
       - name: Run Gosec Security Scanner
         uses: securego/gosec@master
         with:
