@@ -57,6 +57,6 @@ jobs:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-pdf-or-png/demo
-          image_tag: latest,v1
+          image_tag: latest,v0.1.0
           context: ./dummy-pdf-or-png
 

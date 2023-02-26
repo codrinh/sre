@@ -46,8 +46,8 @@ jobs:
         with:
           context: ./dummy-app
           push: false
-          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:${{ env.TEST_TAG }}
-          build-args: BUILD_TAG=${{ env.TEST_TAG }}
+          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
+          build-args: BUILD_TAG=latest
 
       - name: Push
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -56,5 +56,6 @@ jobs:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-app/demo
-          image_tag: latest,{{ env.TEST_TAG}}
+          image_tag: latest,v0.1.0
           context: ./dummy-app
+          build_args: BUILD_TAG=latest
