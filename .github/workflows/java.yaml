@@ -58,7 +58,7 @@ jobs:
           context: ./dummy-app
           push: false
           tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/demo:latest
-          build-args: BUILD_VERSION={{ env.TEST_TAG}}
+          build-args: BUILD_TAG={{ env.TEST_TAG}}
 
       - name: Push
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
