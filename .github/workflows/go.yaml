@@ -35,10 +35,24 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: '-no-fail ./dummy-pdf-or-png'
+
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./dummy-pdf-or-png
+          push: false
+          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-pdf-or-png/demo:latest
+
       - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-pdf-or-png/demo
           image_tag: latest,v1
           context: ./dummy-pdf-or-png
+          push_only: true
