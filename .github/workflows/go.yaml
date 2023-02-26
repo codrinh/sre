@@ -44,6 +44,7 @@ jobs:
 
       - name: Build
         uses: docker/build-push-action@v4
+        if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
         with:
           context: ./dummy-pdf-or-png
           push: false
@@ -57,4 +58,4 @@ jobs:
           image_name: dummy-pdf-or-png/demo
           image_tag: latest,v1
           context: ./dummy-pdf-or-png
-          push_only: true
+          #push_only: true # tag does not exist
