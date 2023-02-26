@@ -13,13 +13,8 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
-jobs:
-  codeql:
-    uses: ./.github/workflows/codeql.yml
-    with: 
-      working_directory: ./dummy-pdf-or-png
-      scripting_languages: go
+
+jobs:  
   build-and-push-to-gcr:
     name: "Golang"
     runs-on: ubuntu-latest
