@@ -10,9 +10,11 @@ on:
     paths:
       - "dummy-pdf-or-png/**"
       - ".github/workflows/go.yaml"
+    branches:
+      - main
   workflow_dispatch:
-  
-jobs:
+
+jobs:  
   build-and-push-to-gcr:
     name: "Golang"
     runs-on: ubuntu-latest

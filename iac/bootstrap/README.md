@@ -25,12 +25,6 @@ gcloud config get project
 gcloud config set project PROJECT_ID
 ```
 
-- On the root folder of this repository run:
-
-```bash
-tfenv install
-```
-
 - Create bootstrap resources:
 
   - If you are running these steps for a new environment, delete the
@@ -78,7 +72,7 @@ terraform init -backend-config=environments/$ENV/config.gcs.tfbackend
 
 At this point, the project bootstrap process finished and `terraform.tfstate`
 configuration is stored into a remote GCS bucket
-(`simba-$ENV-terraform-deploy-state`). If you need to make changes on the
+(`$ENV-terraform-deploy-state`). If you need to make changes on the
 bootstrap code you will need to:
 
 - Make sure that `backend.tf` file has the same content with

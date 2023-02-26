@@ -18,18 +18,15 @@ resource "google_project_service" "enable_gcp_apis" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "artifactregistry.googleapis.com",
-    # "containerregistry.googleapis.com",
+    "autoscaling.googleapis.com",
     "containersecurity.googleapis.com",
     "containerthreatdetection.googleapis.com",
     "iam.googleapis.com",
-    "iap.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "oslogin.googleapis.com",
-    "secretmanager.googleapis.com"
   ])
   service = each.value
-  disable_dependent_services=true
 }
 
 # Create terraform state bucket
@@ -56,29 +53,26 @@ resource "google_service_account" "sa_github_runner" {
 resource "google_project_iam_member" "sa_perms" {
   project = module.project.name
   for_each = toset([
-    "roles/compute.admin",
-    "roles/compute.instanceAdmin.v1",
-    "roles/compute.osAdminLogin",
+    "roles/artifactregistry.admin",
+    "roles/compute.networkAdmin",
+    "roles/container.admin",
     "roles/iam.securityAdmin",
     "roles/iam.serviceAccountCreator",
-    "roles/iam.serviceAccountKeyAdmin",
     "roles/iam.serviceAccountUser",
-    "roles/iap.tunnelResourceAccessor",
-    "roles/logging.configWriter",
-    "roles/monitoring.admin",
-    "roles/secretmanager.admin",
     "roles/storage.admin"
   ])
   role   = each.value
   member = "serviceAccount:${google_service_account.sa_github_runner.email}"
 }
 
+# Create workload identity pool
 resource "google_iam_workload_identity_pool" "github_pool" {
   project                   = module.project.name
   provider                  = google
   workload_identity_pool_id = "github-pool"
 }
 
+# Create Github workload identity provider
 resource "google_iam_workload_identity_pool_provider" "provider" {
   provider                           = google
   project                            = module.project.name
@@ -87,9 +81,9 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
   description                        = "OIDC identity pool provider for Github Actions"
   workload_identity_pool_provider_id = "github-provider"
   attribute_condition                = "assertion.repository=='${var.github_org}/${var.github_repo}'"
-  attribute_mapping                  = {
-    "google.subject"                  = "assertion.sub"
-    "attribute.repository"            = "assertion.repository"
+  attribute_mapping = {
+    "google.subject"       = "assertion.sub"
+    "attribute.repository" = "assertion.repository"
   }
   oidc {
     # recommended way https://github.com/google-github-actions/auth#authenticating-via-workload-identity-federation
@@ -108,6 +102,7 @@ data "google_iam_policy" "wli_user_github_runner" {
   }
 }
 
+# Attach policy to the GitHub SA
 resource "google_service_account_iam_policy" "sa_github_runner_iam" {
   service_account_id = google_service_account.sa_github_runner.name
   policy_data        = data.google_iam_policy.wli_user_github_runner.policy_data
