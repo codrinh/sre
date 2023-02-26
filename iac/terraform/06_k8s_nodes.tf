@@ -11,7 +11,7 @@ resource "google_container_node_pool" "general" {
     max_node_count = 4
   }
   management {
-    auto_repair  = true 
+    auto_repair  = true
     auto_upgrade = true
   }
 

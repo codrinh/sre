@@ -81,9 +81,9 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
   description                        = "OIDC identity pool provider for Github Actions"
   workload_identity_pool_provider_id = "github-provider"
   attribute_condition                = "assertion.repository=='${var.github_org}/${var.github_repo}'"
-  attribute_mapping                  = {
-    "google.subject"                  = "assertion.sub"
-    "attribute.repository"            = "assertion.repository"
+  attribute_mapping = {
+    "google.subject"       = "assertion.sub"
+    "attribute.repository" = "assertion.repository"
   }
   oidc {
     # recommended way https://github.com/google-github-actions/auth#authenticating-via-workload-identity-federation
