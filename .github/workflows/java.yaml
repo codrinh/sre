@@ -42,6 +42,7 @@ jobs:
 
       - name: Build
         uses: docker/build-push-action@v4
+        if: github.event_name == 'pull_request'
         with:
           context: ./dummy-app
           push: false
@@ -57,4 +58,3 @@ jobs:
           image_name: dummy-app/demo
           image_tag: latest,{{ env.TEST_TAG}}
           context: ./dummy-app
-          push_only: true
