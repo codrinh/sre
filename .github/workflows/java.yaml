@@ -37,6 +37,12 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
+      - name: Bump Version
+        id: bump
+        uses: nnichols/maven-version-bump-action@v3
+        with:
+          pom-path: ./dummy-app/
+
       - name: Build
         uses: docker/build-push-action@v4
         with:
