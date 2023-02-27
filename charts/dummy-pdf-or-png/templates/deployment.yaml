@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-pdf-or-png
+  labels:
+    app: dummy-pdf-or-png
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: dummy-pdf-or-png
+  template:
+    metadata:
+      labels:
+        app: dummy-pdf-or-png
+    spec:
+      containers:
+      - name: dummy-pdf-or-png
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          tcpSocket:
+            port: 3000
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "200m"
+            memory: 256M
+          requests:
+           cpu: "200m"
+           memory: 256M

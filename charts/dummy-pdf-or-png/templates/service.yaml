@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummy-pdf-or-png-service
+  labels:
+    app: dummy-pdf-or-png
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: dummy-pdf-or-png

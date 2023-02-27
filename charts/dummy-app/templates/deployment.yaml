@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-app
+  labels:
+    app: dummy-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: dummy-app
+  template:
+    metadata:
+      labels:
+        app: dummy-app
+    spec:
+      containers:
+      - name: dummy-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        - containerPort: 9000
+        env:
+          - name: DUMMY_GO_SERVICE
+            value: "{{ .Values.env.dummy_go_service }}"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 9000
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 9000
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - curl -XPOST http://localhost:9000/actuator/shutdown
+        resources:
+          limits:
+            cpu: "200m"
+            memory: 256M
+          requests:
+           cpu: "200m"
+           memory: 256M
+      terminationGracePeriodSeconds: 60
