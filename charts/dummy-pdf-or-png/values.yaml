@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/dummy-pdf-or-png/dummy-pdf-or-png
+  # tag: latest
+
+service:
+  type: ClusterIP
+  port: 3000
+  target_port: 3000
+

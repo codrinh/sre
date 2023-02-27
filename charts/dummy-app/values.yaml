@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/dummy-app/dummy-app
+  # tag: latest
+env:
+  dummy_go_service: "http://dummy-pdf-or-png-service:3000"
+
+service:
+  type: NodePort
+  port: 8080
+  target_port: 8080
+
