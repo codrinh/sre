@@ -1,11 +1,5 @@
 name: dummy-pdf-or-png
 on:
-  push:
-    paths:
-      - "dummy-pdf-or-png/**"
-      - ".github/workflows/go.yaml"
-    branches:
-      - main
   pull_request:
     paths:
       - "dummy-pdf-or-png/**"
@@ -15,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:  
-  build-and-push-to-gcr:
-    name: "Build &/ Push"
+  build-and-test-go:
+    name: "Build & Test Go"
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -44,30 +38,7 @@ jobs:
 
       - name: Build
         uses: docker/build-push-action@v4
-        if: github.event_name == 'pull_request'
         with:
           context: ./dummy-pdf-or-png
           push: false
           tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-pdf-or-png/dummy-pdf-or-png:latest
-
-      - name: dummy-pdf-or-png version
-        id: dummy-pdf-or-png-version
-        uses: paulhatch/semantic-version@v5.0.2
-        with:
-          major_pattern: "(MAJOR-GO)"
-          minor_pattern: "(MINOR-GO)"
-          change_path: "./dummy-pdf-or-png"
-          namespace: dummy-pdf-or-png
-
-      - name: Debug version
-        run: echo '${{ steps.dummy-pdf-or-png-version.outputs.version }}'
-
-      - name: Build & Push
-        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        with:
-          registry: europe-west3-docker.pkg.dev
-          project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-pdf-or-png/dummy-pdf-or-png
-          image_tag: latest,0.1.0
-          context: ./dummy-pdf-or-png
