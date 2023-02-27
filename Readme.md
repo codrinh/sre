@@ -48,12 +48,12 @@ by providing tools, advice and assistance.
 1. Provision the infrastructure.
 	1. [x] Use IaC.
 	1. [x] Provision resources needed to run the services.
-	1. Provision resources needed to view the logs and metrics of the service.
+	1. [ ] Provision resources needed to view the logs and metrics of the service.
 
 
 
 1. Package and deploy the  service. 
-	1. Provide a docker file and containerize the service. 
+	1. [x] Provide a docker file and containerize the service. 
 	1. [ ] Setup a CI/CD pipeline for the service. It should build the service, 
 	run the tests and deploy it.
 	1. [x] Provide a k8s manifest or use helm charts.
