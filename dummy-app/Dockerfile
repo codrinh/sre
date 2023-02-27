@@ -13,6 +13,6 @@ RUN mvn -f /home/app/pom.xml clean package -Dproject.version=${BUILD_TAG}
 # Package
 FROM azul/zulu-openjdk:${JAVAJDK_VERSION} as final 
 ARG BUILD_TAG=$BUILD_TAG
-COPY --chown=1001:1001 --from=build /home/app/target/demo-${BUILD_TAG}.war /usr/local/lib/demo.war
+COPY --from=build /home/app/target/demo-${BUILD_TAG}.war /usr/local/lib/demo.war
 EXPOSE 8080 9000
 ENTRYPOINT ["java","-jar","/usr/local/lib/demo.war"]
