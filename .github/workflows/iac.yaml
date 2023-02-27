@@ -14,13 +14,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  ENV: dev
-  PROJECT_ID: dev-demo-codrin-h
-  GAR_LOCATION: europe-west3-c
-  GKE_CLUSTER: primary
-  GKE_ZONE: europe-west3-c
-
 jobs:
   terraform:
     name: "Terraform"
