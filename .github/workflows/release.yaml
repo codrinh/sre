@@ -41,18 +41,18 @@ jobs:
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
-          registry: europe-west3-docker.pkg.dev/docker-dummy-pdf-or-png
+          registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-pdf-or-png
+          image_name: docker-dummy-pdf-or-png/dummy-pdf-or-png
           image_tag: latest,${{ github.ref_name }}
           context: ./dummy-pdf-or-png
 
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
-          registry: europe-west3-docker.pkg.dev/docker-dummy-app
+          registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-app
+          image_name: /docker-dummy-app/dummy-app
           image_tag: latest${{ github.ref_name }}
           context: ./dummy-app
           build_args: BUILD_TAG=${{ github.ref_name }}
