@@ -27,13 +27,19 @@ jobs:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SA }}
 
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v1'
+        with:
+          cluster_name: 'primary'
+          location: 'europe-west3-a'
+
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-pdf-or-png/dummy-pdf-or-png
-          image_tag: latest,${{ github.ref }}
+          image_tag: latest,${{ github.ref_name }}
           context: ./dummy-pdf-or-png
 
       - name: Build & Push
@@ -42,18 +48,18 @@ jobs:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-app/dummy-app
-          image_tag: latest${{ github.ref }}
+          image_tag: latest${{ github.ref_name }}
           context: ./dummy-app
-          build_args: BUILD_TAG=${{ github.ref }}
+          build_args: BUILD_TAG=${{ github.ref_name }}
 
       - uses: azure/setup-helm@v3
       
       - id: helm-build-push-install
         working-directory: ./charts
         run: |
-          helm package ./dummy-app/ --version ${{ github.ref }} --app-version ${{ github.ref }}
-          helm package ./dummy-pdf-or-png/ --version ${{ github.ref }} --app-version ${{ github.ref }}
-          helm push dummy-app-${{ github.ref }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
-          helm push dummy-pdf-or-png-${{ github.ref }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
-          helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref }}
-          helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref }}
+          helm package ./dummy-app/ --version ${{ github.ref_name }} --app-version ${{ github.ref_name }}
+          helm package ./dummy-pdf-or-png/ --version ${{ github.ref_name }} --app-version ${{ github.ref_name }}
+          helm push dummy-app-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
+          helm push dummy-pdf-or-png-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
+          helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref_name }}
+          helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref_name }}
