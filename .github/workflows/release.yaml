@@ -33,6 +33,11 @@ jobs:
           cluster_name: 'primary'
           location: 'europe-west3-a'
 
+      - run: |-
+          gcloud --quiet auth configure-docker
+          kubectl config current-context
+          kubectl get pods
+
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
