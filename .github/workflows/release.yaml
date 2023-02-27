@@ -53,7 +53,7 @@ jobs:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: /docker-dummy-app/dummy-app
-          image_tag: latest${{ github.ref_name }}
+          image_tag: latest,${{ github.ref_name }}
           context: ./dummy-app
           build_args: BUILD_TAG=${{ github.ref_name }}
 
