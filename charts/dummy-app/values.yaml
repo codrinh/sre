@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/dummy-app/dummy-app
+  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/docker-dummy-app/dummy-app
   # tag: latest
 env:
   dummy_go_service: "http://dummy-pdf-or-png-service:3000"

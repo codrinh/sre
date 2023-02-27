@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/dummy-pdf-or-png/dummy-pdf-or-png
+  repository: europe-west3-docker.pkg.dev/dev-demo-codrin-h/docker-dummy-pdf-or-png/dummy-pdf-or-png
   # tag: latest
 
 service:

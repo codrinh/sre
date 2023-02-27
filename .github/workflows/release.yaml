@@ -41,30 +41,30 @@ jobs:
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
-          registry: europe-west3-docker.pkg.dev
+          registry: europe-west3-docker.pkg.dev/docker-dummy-pdf-or-png
           project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-pdf-or-png/dummy-pdf-or-png
+          image_name: dummy-pdf-or-png
           image_tag: latest,${{ github.ref_name }}
           context: ./dummy-pdf-or-png
 
       - name: Build & Push
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
-          registry: europe-west3-docker.pkg.dev
+          registry: europe-west3-docker.pkg.dev/docker-dummy-app
           project_id: ${{ env.GCP_PROJECT }}
-          image_name: dummy-app/dummy-app
+          image_name: dummy-app
           image_tag: latest${{ github.ref_name }}
           context: ./dummy-app
           build_args: BUILD_TAG=${{ github.ref_name }}
 
       - uses: azure/setup-helm@v3
       
-      - id: helm-build-push-install
+      - id: helm-package-push-install
         working-directory: ./charts
         run: |
           helm package ./dummy-app/ --version ${{ github.ref_name }} --app-version ${{ github.ref_name }}
           helm package ./dummy-pdf-or-png/ --version ${{ github.ref_name }} --app-version ${{ github.ref_name }}
-          helm push dummy-app-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
-          helm push dummy-pdf-or-png-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app
+          helm push dummy-app-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/helm-demo-codrin-h/helm-dummy-app
+          helm push dummy-pdf-or-png-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/helm-dev-demo-codrin-h/helm-dummy-app
           helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref_name }}
-          helm upgrade -i dummy-pdf-or-png oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/dummy-pdf-or-png/dummy-pdf-or-png --version ${{ github.ref_name }}
+          helm upgrade -i dummy-pdf-or-png oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-pdf-or-png/dummy-pdf-or-png --version ${{ github.ref_name }}
