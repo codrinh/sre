@@ -1,4 +1,4 @@
-name: Build and Push Java
+name: dummy-app
 on:
   push:
     paths:
@@ -19,7 +19,7 @@ env:
 
 jobs:
   build-and-push-to-gcr:
-    name: "Java"
+    name: "Build &/ Push"
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -56,6 +56,6 @@ jobs:
           registry: europe-west3-docker.pkg.dev
           project_id: ${{ env.GCP_PROJECT }}
           image_name: dummy-app/dummy-app
-          image_tag: latest,v0.1.0
+          image_tag: latest,0.1.0
           context: ./dummy-app
-          build_args: BUILD_TAG=latest
+          build_args: BUILD_TAG=0.1.0
