@@ -34,7 +34,7 @@ jobs:
           location: 'europe-west3-a'
 
       - run: |-
-          gcloud --quiet auth configure-docker
+          gcloud --quiet auth configure-docker europe-west3-docker.pkg.dev
           kubectl config current-context
           kubectl get pods
 
