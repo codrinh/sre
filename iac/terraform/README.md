@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - GCloud SDK
-
+- update the `environments\<env>\config.gcs.tfbackend` with the GCP bucket from the bootstrap output
 ## Bootstrap guide
 
 - Get logged in via `gcloud`:

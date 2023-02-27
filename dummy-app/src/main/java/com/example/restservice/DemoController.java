@@ -25,6 +25,10 @@ public class DemoController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
 
+	@GetMapping(value = "/")
+	public void handleRootPath() {
+	}
+	
 	// refactor, function should be part of class not in the controller 
 	private ResponseEntity<byte[]> callPdfApi() {
 		RestTemplate restTemplate = new RestTemplate();
