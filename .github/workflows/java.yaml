@@ -32,5 +32,5 @@ jobs:
         with:
           context: ./dummy-app
           push: false
-          tags: europe-west3-docker.pkg.dev/${{ env.GCP_PROJECT }}/dummy-app/dummy-app:latest
+          tags: dummy-app:latest
           build-args: BUILD_TAG=latest
