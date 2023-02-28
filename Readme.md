@@ -54,7 +54,7 @@ by providing tools, advice and assistance.
 
 1. Package and deploy the  service. 
 	1. [x] Provide a docker file and containerize the service. 
-	1. [ ] Setup a CI/CD pipeline for the service. It should build the service, 
+	1. [x] Setup a CI/CD pipeline for the service. It should build the service, 
 	run the tests and deploy it.
 	1. [x] Provide a k8s manifest or use helm charts.
 
