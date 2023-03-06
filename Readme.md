@@ -38,7 +38,7 @@ by providing tools, advice and assistance.
   subdirectory of this repository, and then returns the document with correct 
   mime-type.
 	1.[x] Provides an endpoint for health monitoring.
-	1. Has tests, so regressions can be identified.
+	1. [ ] Has tests, so regressions can be identified.
 	1. [x] Fails safe.
 	1. [x] Logs relevant info.
 	1. [x] Exposes prometheus metrics.

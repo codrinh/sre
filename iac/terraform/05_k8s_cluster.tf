@@ -20,8 +20,15 @@ resource "google_container_cluster" "primary" {
     horizontal_pod_autoscaling {
       disabled = false
     }
+
   }
 
+    monitoring_config {
+      enable_components = ["SYSTEM_COMPONENTS"]
+      managed_prometheus {
+        enabled = true
+      }
+    }
   release_channel {
     channel = "REGULAR"
   }

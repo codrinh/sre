@@ -1,0 +1,31 @@
+adminPassword: myS3cretpawsword # TBD secret with KMS
+
+datasources: 
+ datasources.yaml:
+   apiVersion: 1
+   datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-frontend-service:9000
+      isDefault: true
+
+dashboardProviders: 
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: 'default'
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    # Ref: https://grafana.com/grafana/dashboards/4701-jvm-micrometer/
+    jvm-micrometer:
+      gnetId: 4701
+      revision: 9
+      datasource: Prometheus
