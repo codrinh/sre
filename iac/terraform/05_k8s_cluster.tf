@@ -23,12 +23,12 @@ resource "google_container_cluster" "primary" {
 
   }
 
-    monitoring_config {
-      enable_components = ["SYSTEM_COMPONENTS"]
-      managed_prometheus {
-        enabled = true
-      }
+  monitoring_config {
+    enable_components = ["SYSTEM_COMPONENTS"]
+    managed_prometheus {
+      enabled = true
     }
+  }
   release_channel {
     channel = "REGULAR"
   }
