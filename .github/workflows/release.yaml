@@ -70,3 +70,7 @@ jobs:
           helm push dummy-pdf-or-png-${{ github.ref_name }}.tgz oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-pdf-or-png
           helm upgrade -i dummy-app oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-app/dummy-app --version ${{ github.ref_name }}
           helm upgrade -i dummy-pdf-or-png oci://europe-west3-docker.pkg.dev/dev-demo-codrin-h/helm-dummy-pdf-or-png/dummy-pdf-or-png --version ${{ github.ref_name }}
+          kubectl apply -f ./prometheus --recursive
+          helm repo add grafana https://grafana.github.io/helm-charts
+          helm repo update
+          helm upgrade -i grafana grafana/grafana -f ./grafana/grafana.yaml

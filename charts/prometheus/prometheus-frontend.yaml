@@ -45,15 +45,3 @@ spec:
   ports:
   - name: web
     port: 9000
-
-# ADD TO TERRAFORM !!!
-
-# gcloud iam service-accounts add-iam-policy-binding \
-#   --role roles/iam.workloadIdentityUser \
-#   --member "serviceAccount:dev-demo-codrin-h.svc.id.goog[default/default]" \
-#   dev-gke-sa@dev-demo-codrin-h.iam.gserviceaccount.com \
-
-# kubectl annotate serviceaccount \
-#   --namespace default \
-#   default \
-#   iam.gke.io/gcp-service-account=dev-gke-sa@dev-demo-codrin-h.iam.gserviceaccount.com

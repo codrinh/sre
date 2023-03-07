@@ -1,3 +1,6 @@
+version: 6.51.1
+appVersion: 9.4.3
+
 adminPassword: myS3cretpawsword # TBD secret with KMS
 
 datasources: 
