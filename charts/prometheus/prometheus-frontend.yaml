@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-frontend
+  template:
+    metadata:
+      labels:
+        app: prometheus-frontend
+    spec:
+      automountServiceAccountToken: true
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+      containers:
+      - name: frontend
+        image: "gke.gcr.io/prometheus-engine/frontend:v0.5.0-gke.0"
+        args:
+        - "--web.listen-address=:9000"
+        - "--query.project-id=dev-demo-codrin-h"
+        ports:
+        - name: web
+          containerPort: 9000
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: web
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-frontend-service
+spec:
+  clusterIP: None
+  selector:
+    app: prometheus-frontend
+  ports:
+  - name: web
+    port: 9000

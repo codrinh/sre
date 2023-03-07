@@ -7,7 +7,7 @@ env:
   dummy_go_service: "http://dummy-pdf-or-png-service:3000"
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 8080
   target_port: 8080
 

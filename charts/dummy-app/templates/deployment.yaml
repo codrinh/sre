@@ -14,18 +14,22 @@ spec:
     metadata:
       labels:
         app: dummy-app
-      annotations:
-        prometheus.io/path: "/actuator/prometheus"
-        prometheus.io/port: "9000"
-        prometheus.io/scrape: "true"
+      # for prometheus self managed
+      # annotations: 
+      #   prometheus.io/path: "/actuator/prometheus"
+      #   prometheus.io/port: "9000"
+      #   prometheus.io/scrape: "true"
     spec:
       containers:
       - name: dummy-app
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
-        - containerPort: 9000
+        - name: http 
+          containerPort: 8080
+        # name of the port must match prometheus gcp integration scrap config
+        - name: metrics
+          containerPort: 9000
         env:
           - name: DUMMY_GO_SERVICE
             value: "{{ .Values.env.dummy_go_service }}"
